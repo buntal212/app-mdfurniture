@@ -8,6 +8,18 @@ import {
 
 import routes from './routes.js'
 
+const authTokenKey = 'mdfurniture_auth_token'
+
+function hasAuthToken() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return Boolean(
+    localStorage.getItem(authTokenKey) || sessionStorage.getItem(authTokenKey),
+  )
+}
+
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -32,6 +44,12 @@ export default defineRouter((/* { store, ssrContext } */) => {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE),
+  })
+
+  Router.beforeEach((to) => {
+    if (to.name !== 'login' && !hasAuthToken()) {
+      return { name: 'login' }
+    }
   })
 
   return Router

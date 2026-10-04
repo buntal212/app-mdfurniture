@@ -1,9 +1,20 @@
+import loginRoutes from './login'
+import kategoriRoutes from './kategori'
+import produkRoutes from './produk'
+
 const routes = [
+  ...loginRoutes,
   {
     path: '/',
     component: () => import('@/layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('@/pages/IndexPage.vue') },
+      {
+        path: '',
+        name: 'sso',
+        component: () => import('@/pages/IndexPage.vue'),
+      },
+      ...kategoriRoutes,
+      ...produkRoutes,
       { path: 'second', component: () => import('@/pages/SecondPage.vue') },
     ],
   },
