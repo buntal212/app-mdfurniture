@@ -31,6 +31,9 @@ export default defineConfig((/* ctx */) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
     build: {
+      env: {
+        file: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
+      },
       target: {
         // browser: 'baseline-widely-available',
         // node: 'node22'
