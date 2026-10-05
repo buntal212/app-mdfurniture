@@ -47,9 +47,11 @@
             v-model="form"
             :categories="categories"
             :existing-images="editing?.images || []"
+            :deleting-image-id="deletingImageId"
             :saving="saving"
             @submit="submit"
             @cancel="dialog = false"
+            @delete-image="confirmImageRemove"
             @rejected-files="notifyRejectedFiles" /></q-card-section></q-card></q-dialog
     ><q-dialog v-model="removeDialog"
       ><q-card class="produk-dialog"
@@ -61,6 +63,19 @@
             color="red-6"
             label="Hapus"
             @click="remove" /></q-card-actions></q-card></q-dialog
+    ><q-dialog v-model="removeImageDialog"
+      ><q-card class="produk-dialog"
+        ><q-card-section>Hapus foto produk ini?</q-card-section
+        ><q-card-section class="text-caption text-grey-5"
+          >Foto akan dihapus permanen dan tidak dapat dikembalikan.</q-card-section
+        ><q-card-actions align="right"
+          ><q-btn flat no-caps label="Batal" @click="removeImageDialog = false" /><q-btn
+            unelevated
+            no-caps
+            color="red-6"
+            label="Hapus Foto"
+            :loading="deletingImageId === selectedImage?.id"
+            @click="removeImage" /></q-card-actions></q-card></q-dialog
   ></q-page>
 </template>
 <script setup>
@@ -74,12 +89,14 @@ import { useProdukStore } from '@/stores/produk'
 const $q = useQuasar(),
   router = useRouter(),
   store = useProdukStore()
-const { items, loading, saving, categories } = storeToRefs(store)
+const { items, loading, saving, deletingImageId, categories } = storeToRefs(store)
 const search = ref(''),
   dialog = ref(false),
   removeDialog = ref(false),
+  removeImageDialog = ref(false),
   editing = ref(null),
   selected = ref(null),
+  selectedImage = ref(null),
   form = ref(empty())
 function empty() {
   return {
@@ -144,6 +161,26 @@ async function submit() {
 function confirmRemove(product) {
   selected.value = product
   removeDialog.value = true
+}
+function confirmImageRemove(image) {
+  selectedImage.value = image
+  removeImageDialog.value = true
+}
+async function removeImage() {
+  if (!editing.value || !selectedImage.value) return
+
+  try {
+    const response = await store.removeImage(editing.value.id, selectedImage.value.id)
+    editing.value = response.data
+    selectedImage.value = null
+    removeImageDialog.value = false
+    $q.notify({ type: 'positive', message: response.message })
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.response?.data?.message || 'Foto produk gagal dihapus.',
+    })
+  }
 }
 async function remove() {
   try {

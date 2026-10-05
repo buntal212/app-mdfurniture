@@ -81,7 +81,22 @@
       </q-file>
       <div v-if="existingImages.length" class="existing-images">
         <div v-for="image in existingImages" :key="image.id" class="existing-images__item">
-          <q-img :src="image.image_url" fit="cover" class="existing-images__image" />
+          <div class="existing-images__preview">
+            <q-img :src="image.image_url" fit="cover" class="existing-images__image" />
+            <q-btn
+              round
+              dense
+              unelevated
+              color="red-7"
+              icon="delete"
+              size="sm"
+              class="existing-images__delete"
+              :loading="deletingImageId === image.id"
+              :disable="saving || deletingImageId !== null"
+              :aria-label="`Hapus foto ${image.alt_text || 'produk'}`"
+              @click="emit('delete-image', image)"
+            />
+          </div>
           <span>{{ image.alt_text || 'Foto produk tersimpan' }}</span>
         </div>
       </div>
@@ -107,10 +122,11 @@ const props = defineProps({
   modelValue: { type: Object, required: true },
   categories: { type: Array, default: () => [] },
   existingImages: { type: Array, default: () => [] },
+  deletingImageId: { type: [Number, String], default: null },
   saving: Boolean,
 })
 
-const emit = defineEmits(['update:modelValue', 'submit', 'cancel', 'rejected-files'])
+const emit = defineEmits(['update:modelValue', 'submit', 'cancel', 'rejected-files', 'delete-image'])
 
 function set(key, value) {
   emit('update:modelValue', { ...props.modelValue, [key]: value })
@@ -138,9 +154,19 @@ function set(key, value) {
   font-size: 11px;
 }
 
+.existing-images__preview {
+  position: relative;
+}
+
 .existing-images__image {
   width: 92px;
   height: 72px;
   border-radius: 8px;
+}
+
+.existing-images__delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
 }
 </style>

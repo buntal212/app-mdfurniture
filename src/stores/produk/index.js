@@ -6,6 +6,7 @@ export const useProdukStore = defineStore('produk', () => {
   const items = ref([])
   const loading = ref(false)
   const saving = ref(false)
+  const deletingImageId = ref(null)
   const categories = ref([])
 
   async function getProducts(search = '') {
@@ -70,5 +71,27 @@ export const useProdukStore = defineStore('produk', () => {
     return response.data.message
   }
 
-  return { items, loading, saving, categories, getProducts, getCategories, save, remove }
+  async function removeImage(productId, imageId) {
+    deletingImageId.value = imageId
+    try {
+      const response = await api.delete(`/products/${productId}/images/${imageId}`)
+      await getProducts()
+      return response.data
+    } finally {
+      deletingImageId.value = null
+    }
+  }
+
+  return {
+    items,
+    loading,
+    saving,
+    deletingImageId,
+    categories,
+    getProducts,
+    getCategories,
+    save,
+    remove,
+    removeImage,
+  }
 })
