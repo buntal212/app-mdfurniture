@@ -35,7 +35,12 @@
         class="produk-search"
         @update:model-value="load"
         ><template #prepend><q-icon name="search" /></template></q-input
-      ><ListProduk :items="items" :loading="loading" @edit="open" @delete="confirmRemove" />
+      ><ListProduk
+        :items="items"
+        :loading="loading"
+        @edit="open"
+        @delete="confirmRemove"
+      />
     </section>
     <q-dialog v-model="dialog"
       ><q-card class="produk-dialog"
@@ -52,12 +57,18 @@
             @submit="submit"
             @cancel="dialog = false"
             @delete-image="confirmImageRemove"
-            @rejected-files="notifyRejectedFiles" /></q-card-section></q-card></q-dialog
+            @rejected-files="
+              notifyRejectedFiles
+            " /></q-card-section></q-card></q-dialog
     ><q-dialog v-model="removeDialog"
       ><q-card class="produk-dialog"
         ><q-card-section>Hapus produk “{{ selected?.nama }}”?</q-card-section
         ><q-card-actions align="right"
-          ><q-btn flat no-caps label="Batal" @click="removeDialog = false" /><q-btn
+          ><q-btn
+            flat
+            no-caps
+            label="Batal"
+            @click="removeDialog = false" /><q-btn
             unelevated
             no-caps
             color="red-6"
@@ -67,9 +78,14 @@
       ><q-card class="produk-dialog"
         ><q-card-section>Hapus foto produk ini?</q-card-section
         ><q-card-section class="text-caption text-grey-5"
-          >Foto akan dihapus permanen dan tidak dapat dikembalikan.</q-card-section
+          >Foto akan dihapus permanen dan tidak dapat
+          dikembalikan.</q-card-section
         ><q-card-actions align="right"
-          ><q-btn flat no-caps label="Batal" @click="removeImageDialog = false" /><q-btn
+          ><q-btn
+            flat
+            no-caps
+            label="Batal"
+            @click="removeImageDialog = false" /><q-btn
             unelevated
             no-caps
             color="red-6"
@@ -89,7 +105,8 @@ import { useProdukStore } from '@/stores/produk'
 const $q = useQuasar(),
   router = useRouter(),
   store = useProdukStore()
-const { items, loading, saving, deletingImageId, categories } = storeToRefs(store)
+const { items, loading, saving, deletingImageId, categories } =
+  storeToRefs(store)
 const search = ref(''),
   dialog = ref(false),
   removeDialog = ref(false),
@@ -108,7 +125,7 @@ function empty() {
     status_stok: 'ready',
     aktif: true,
     indexable: true,
-    images: [],
+    images: []
   }
 }
 async function load() {
@@ -117,7 +134,7 @@ async function load() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.response?.data?.message || 'Produk gagal dimuat.',
+      message: error.response?.data?.message || 'Produk gagal dimuat.'
     })
   }
 }
@@ -134,7 +151,7 @@ function open(product = null) {
         status_stok: product.status_stok,
         aktif: product.aktif,
         featured: product.featured,
-        indexable: product.indexable,
+        indexable: product.indexable
       }
     : empty()
   dialog.value = true
@@ -143,7 +160,8 @@ function open(product = null) {
 function notifyRejectedFiles() {
   $q.notify({
     type: 'negative',
-    message: 'Foto harus berformat JPG, PNG, atau WebP dan berukuran maksimal 5 MB.',
+    message:
+      'Foto harus berformat JPG, PNG, atau WebP dan berukuran maksimal 5 MB.'
   })
 }
 async function submit() {
@@ -154,7 +172,7 @@ async function submit() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.response?.data?.message || 'Produk gagal disimpan.',
+      message: error.response?.data?.message || 'Produk gagal disimpan.'
     })
   }
 }
@@ -170,7 +188,10 @@ async function removeImage() {
   if (!editing.value || !selectedImage.value) return
 
   try {
-    const response = await store.removeImage(editing.value.id, selectedImage.value.id)
+    const response = await store.removeImage(
+      editing.value.id,
+      selectedImage.value.id
+    )
     editing.value = response.data
     selectedImage.value = null
     removeImageDialog.value = false
@@ -178,7 +199,7 @@ async function removeImage() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.response?.data?.message || 'Foto produk gagal dihapus.',
+      message: error.response?.data?.message || 'Foto produk gagal dihapus.'
     })
   }
 }
@@ -190,7 +211,7 @@ async function remove() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.response?.data?.message || 'Produk gagal dihapus.',
+      message: error.response?.data?.message || 'Produk gagal dihapus.'
     })
   }
 }

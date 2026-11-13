@@ -7,7 +7,9 @@
         </q-item-section>
 
         <q-item-section>
-          <q-item-label class="list-kategori__name">{{ item.nama }}</q-item-label>
+          <q-item-label class="list-kategori__name">{{
+            item.nama
+          }}</q-item-label>
           <q-item-label caption class="list-kategori__description">
             {{ item.deskripsi || 'Belum ada deskripsi kategori.' }}
           </q-item-label>
@@ -49,7 +51,9 @@
       <q-skeleton v-for="index in 3" :key="index" type="QItem" dark />
     </div>
 
-    <div v-else class="list-kategori__empty">Belum ada kategori yang sesuai.</div>
+    <div v-else class="list-kategori__empty"
+      >Belum ada kategori yang sesuai.</div
+    >
 
     <div v-if="hasMore" class="list-kategori__more">
       <q-btn
@@ -70,12 +74,12 @@
 defineProps({
   items: {
     type: Array,
-    required: true,
+    required: true
   },
   loading: Boolean,
   loadingMore: Boolean,
   hasMore: Boolean,
-  deletingId: Number,
+  deletingId: Number
 })
 
 const emit = defineEmits(['edit', 'delete', 'load-more'])

@@ -140,8 +140,15 @@ import { useKategoriStore } from '@/stores/kategori'
 const $q = useQuasar()
 const router = useRouter()
 const kategoriStore = useKategoriStore()
-const { items, loading, loadingMore, saving, deletingId, currentPage, hasMore } =
-  storeToRefs(kategoriStore)
+const {
+  items,
+  loading,
+  loadingMore,
+  saving,
+  deletingId,
+  currentPage,
+  hasMore
+} = storeToRefs(kategoriStore)
 const search = ref('')
 const dialogOpen = ref(false)
 const deleteDialogOpen = ref(false)
@@ -153,7 +160,7 @@ function createEmptyForm() {
   return {
     nama: '',
     deskripsi: '',
-    aktif: true,
+    aktif: true
   }
 }
 
@@ -167,7 +174,7 @@ async function getCategories() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: getErrorMessage(error, 'Kategori gagal dimuat.'),
+      message: getErrorMessage(error, 'Kategori gagal dimuat.')
     })
   }
 }
@@ -188,21 +195,24 @@ function openEditDialog(category) {
   form.value = {
     nama: category.nama,
     deskripsi: category.deskripsi || '',
-    aktif: category.aktif,
+    aktif: category.aktif
   }
   dialogOpen.value = true
 }
 
 async function submitForm() {
   try {
-    const message = await kategoriStore.saveCategory(form.value, editingCategory.value?.id)
+    const message = await kategoriStore.saveCategory(
+      form.value,
+      editingCategory.value?.id
+    )
 
     dialogOpen.value = false
     $q.notify({ type: 'positive', message })
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: getErrorMessage(error, 'Kategori gagal disimpan.'),
+      message: getErrorMessage(error, 'Kategori gagal disimpan.')
     })
   }
 }
@@ -218,7 +228,9 @@ async function deleteSelectedCategory() {
   }
 
   try {
-    const message = await kategoriStore.deleteCategory(categoryToDelete.value.id)
+    const message = await kategoriStore.deleteCategory(
+      categoryToDelete.value.id
+    )
 
     deleteDialogOpen.value = false
     categoryToDelete.value = null
@@ -226,7 +238,7 @@ async function deleteSelectedCategory() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: getErrorMessage(error, 'Kategori gagal dihapus.'),
+      message: getErrorMessage(error, 'Kategori gagal dihapus.')
     })
   }
 }
@@ -239,12 +251,12 @@ async function loadMore() {
   try {
     await kategoriStore.getCategories({
       page: currentPage.value + 1,
-      append: true,
+      append: true
     })
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: getErrorMessage(error, 'Kategori berikutnya gagal dimuat.'),
+      message: getErrorMessage(error, 'Kategori berikutnya gagal dimuat.')
     })
   }
 }
@@ -306,7 +318,13 @@ onMounted(getCategories)
   color: #f4f5f5;
   border: 1px solid rgba(225, 173, 37, 0.28);
   border-radius: 16px;
-  background: radial-gradient(circle at 92% 0%, rgba(224, 167, 25, 0.14), transparent 36%), #1b2022;
+  background:
+    radial-gradient(
+      circle at 92% 0%,
+      rgba(224, 167, 25, 0.14),
+      transparent 36%
+    ),
+    #1b2022;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
 }
 

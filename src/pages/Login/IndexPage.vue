@@ -17,7 +17,10 @@
           </div>
 
           <div class="brand-copy">
-            <p>Kelola koleksi, pesanan, dan pengalaman pelanggan Anda dalam satu tempat.</p>
+            <p
+              >Kelola koleksi, pesanan, dan pengalaman pelanggan Anda dalam satu
+              tempat.</p
+            >
           </div>
 
           <div class="brand-panel__footer">
@@ -82,7 +85,9 @@
                   dense
                   :icon="isPasswordVisible ? 'visibility_off' : 'visibility'"
                   :aria-label="
-                    isPasswordVisible ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'
+                    isPasswordVisible
+                      ? 'Sembunyikan kata sandi'
+                      : 'Tampilkan kata sandi'
                   "
                   @click="isPasswordVisible = !isPasswordVisible"
                 />
@@ -90,7 +95,11 @@
             </q-input>
 
             <div class="form-options">
-              <q-checkbox v-model="loginStore.form.rememberMe" label="Ingat saya" dense />
+              <q-checkbox
+                v-model="loginStore.form.rememberMe"
+                label="Ingat saya"
+                dense
+              />
               <q-btn flat no-caps label="Lupa kata sandi?" class="text-link" />
             </div>
 
@@ -109,12 +118,21 @@
 
           <p class="register-copy">
             Belum memiliki akun?
-            <q-btn flat dense no-caps label="Hubungi administrator" class="text-link" />
+            <q-btn
+              flat
+              dense
+              no-caps
+              label="Hubungi administrator"
+              class="text-link"
+            />
           </p>
         </div>
 
         <div class="copyright">
-          <span>© {{ currentYear }} MD Furniture. Seluruh hak cipta dilindungi.</span>
+          <span
+            >© {{ currentYear }} MD Furniture. Seluruh hak cipta
+            dilindungi.</span
+          >
           <span>Support by CV. Udumbara Informatika</span>
         </div>
       </section>
@@ -140,14 +158,14 @@ async function handleLogin() {
 
     $q.notify({
       type: 'positive',
-      message,
+      message
     })
 
     await router.replace('/')
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.message,
+      message: error.message
     })
   }
 }
@@ -176,8 +194,16 @@ async function handleLogin() {
   overflow: hidden;
   color: #fff;
   background:
-    radial-gradient(circle at 78% 20%, rgba(229, 184, 99, 0.13), transparent 25%),
-    radial-gradient(circle at 14% 88%, rgba(255, 255, 255, 0.08), transparent 28%),
+    radial-gradient(
+      circle at 78% 20%,
+      rgba(229, 184, 99, 0.13),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 14% 88%,
+      rgba(255, 255, 255, 0.08),
+      transparent 28%
+    ),
     linear-gradient(145deg, #050506 0%, #161719 100%);
 }
 

@@ -32,11 +32,15 @@ export const useKategoriStore = defineStore('kategori', () => {
         params: {
           page,
           per_page: perPage,
-          search: search.value || undefined,
-        },
+          search: search.value || undefined
+        }
       })
 
-      const { current_page: currentPageResponse, data, next_page_url: nextPageUrl } = response.data
+      const {
+        current_page: currentPageResponse,
+        data,
+        next_page_url: nextPageUrl
+      } = response.data
 
       items.value = append ? [...items.value, ...data] : data
       currentPage.value = currentPageResponse
@@ -90,6 +94,6 @@ export const useKategoriStore = defineStore('kategori', () => {
     setSearch,
     getCategories,
     saveCategory,
-    deleteCategory,
+    deleteCategory
   }
 })

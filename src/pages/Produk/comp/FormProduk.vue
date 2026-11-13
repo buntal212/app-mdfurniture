@@ -55,7 +55,7 @@
       :options="[
         { label: 'Ready', value: 'ready' },
         { label: 'Preorder', value: 'preorder' },
-        { label: 'Habis', value: 'out_of_stock' },
+        { label: 'Habis', value: 'out_of_stock' }
       ]"
       emit-value
       map-options
@@ -80,9 +80,17 @@
         <template #prepend><q-icon name="add_photo_alternate" /></template>
       </q-file>
       <div v-if="existingImages.length" class="existing-images">
-        <div v-for="image in existingImages" :key="image.id" class="existing-images__item">
+        <div
+          v-for="image in existingImages"
+          :key="image.id"
+          class="existing-images__item"
+        >
           <div class="existing-images__preview">
-            <q-img :src="image.image_url" fit="cover" class="existing-images__image" />
+            <q-img
+              :src="image.image_url"
+              fit="cover"
+              class="existing-images__image"
+            />
             <q-btn
               round
               dense
@@ -123,10 +131,16 @@ const props = defineProps({
   categories: { type: Array, default: () => [] },
   existingImages: { type: Array, default: () => [] },
   deletingImageId: { type: [Number, String], default: null },
-  saving: Boolean,
+  saving: Boolean
 })
 
-const emit = defineEmits(['update:modelValue', 'submit', 'cancel', 'rejected-files', 'delete-image'])
+const emit = defineEmits([
+  'update:modelValue',
+  'submit',
+  'cancel',
+  'rejected-files',
+  'delete-image'
+])
 
 function set(key, value) {
   emit('update:modelValue', { ...props.modelValue, [key]: value })

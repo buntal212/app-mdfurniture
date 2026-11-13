@@ -12,14 +12,18 @@ export const useProdukStore = defineStore('produk', () => {
   async function getProducts(search = '') {
     loading.value = true
     try {
-      items.value = (await api.get('/products', { params: { search, per_page: 12 } })).data.data
+      items.value = (
+        await api.get('/products', { params: { search, per_page: 12 } })
+      ).data.data
     } finally {
       loading.value = false
     }
   }
 
   async function getCategories() {
-    categories.value = (await api.get('/categories', { params: { per_page: 100 } })).data.data
+    categories.value = (
+      await api.get('/categories', { params: { per_page: 100 } })
+    ).data.data
   }
 
   async function save(product, id) {
@@ -35,20 +39,22 @@ export const useProdukStore = defineStore('produk', () => {
         'status_stok',
         'aktif',
         'featured',
-        'indexable',
+        'indexable'
       ]
 
-      fields.forEach((field) => {
+      fields.forEach(field => {
         if (product[field] !== undefined && product[field] !== null) {
           body.append(
             field,
-            typeof product[field] === 'boolean' ? Number(product[field]) : product[field],
+            typeof product[field] === 'boolean'
+              ? Number(product[field])
+              : product[field]
           )
         }
       })
 
       const images = product.images || []
-      images.forEach((image) => body.append('images[]', image))
+      images.forEach(image => body.append('images[]', image))
 
       if (id) {
         body.append('_method', 'PATCH')
@@ -74,7 +80,9 @@ export const useProdukStore = defineStore('produk', () => {
   async function removeImage(productId, imageId) {
     deletingImageId.value = imageId
     try {
-      const response = await api.delete(`/products/${productId}/images/${imageId}`)
+      const response = await api.delete(
+        `/products/${productId}/images/${imageId}`
+      )
       await getProducts()
       return response.data
     } finally {
@@ -92,6 +100,6 @@ export const useProdukStore = defineStore('produk', () => {
     getCategories,
     save,
     remove,
-    removeImage,
+    removeImage
   }
 })

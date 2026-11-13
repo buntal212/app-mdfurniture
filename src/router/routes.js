@@ -11,20 +11,20 @@ const routes = [
       {
         path: '',
         name: 'sso',
-        component: () => import('@/pages/IndexPage.vue'),
+        component: () => import('@/pages/IndexPage.vue')
       },
       ...kategoriRoutes,
       ...produkRoutes,
-      { path: 'second', component: () => import('@/pages/SecondPage.vue') },
-    ],
+      { path: 'second', component: () => import('@/pages/SecondPage.vue') }
+    ]
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('@/pages/ErrorNotFound.vue'),
-  },
+    component: () => import('@/pages/ErrorNotFound.vue')
+  }
 ]
 
 export default routes

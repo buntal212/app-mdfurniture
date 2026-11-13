@@ -12,16 +12,32 @@
           height="48"
           class="list-produk__image"
         />
-        <q-avatar v-else color="blue-grey-9" text-color="amber-6" icon="inventory_2" />
+        <q-avatar
+          v-else
+          color="blue-grey-9"
+          text-color="amber-6"
+          icon="inventory_2"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label>{{ item.nama }}</q-item-label>
-        <q-item-label caption>{{ item.category?.nama || 'Tanpa kategori' }}</q-item-label>
-        <q-item-label caption>{{ item.stok }} stok · {{ item.status_stok }}</q-item-label>
+        <q-item-label caption>{{
+          item.category?.nama || 'Tanpa kategori'
+        }}</q-item-label>
+        <q-item-label caption
+          >{{ item.stok }} stok · {{ item.status_stok }}</q-item-label
+        >
       </q-item-section>
       <q-item-section side>
         <div>
-          <q-btn flat round dense icon="edit" color="amber-6" @click="emit('edit', item)" />
+          <q-btn
+            flat
+            round
+            dense
+            icon="edit"
+            color="amber-6"
+            @click="emit('edit', item)"
+          />
           <q-btn
             flat
             round
@@ -33,7 +49,10 @@
         </div>
       </q-item-section>
     </q-item>
-    <div v-if="!loading && !items.length" class="q-pa-lg text-center text-grey-5">
+    <div
+      v-if="!loading && !items.length"
+      class="q-pa-lg text-center text-grey-5"
+    >
       Belum ada produk.
     </div>
     <q-inner-loading :showing="loading" color="amber-6" />

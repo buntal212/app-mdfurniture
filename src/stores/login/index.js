@@ -8,10 +8,10 @@ export const useLoginStore = defineStore('login', {
     form: {
       username: '',
       password: '',
-      rememberMe: false,
+      rememberMe: false
     },
     loading: false,
-    user: null,
+    user: null
   }),
 
   actions: {
@@ -39,6 +39,6 @@ export const useLoginStore = defineStore('login', {
       } finally {
         this.loading = false
       }
-    },
-  },
+    }
+  }
 })

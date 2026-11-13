@@ -36,13 +36,21 @@
           @update:model-value="updateField('aktif', $event)"
         />
         <span>{{
-          modelValue.aktif ? 'Tampil di daftar kategori' : 'Disimpan sebagai nonaktif'
+          modelValue.aktif
+            ? 'Tampil di daftar kategori'
+            : 'Disimpan sebagai nonaktif'
         }}</span>
       </div>
     </div>
 
     <div class="form-kategori__actions">
-      <q-btn flat no-caps label="Batal" class="form-kategori__cancel" @click="emit('cancel')" />
+      <q-btn
+        flat
+        no-caps
+        label="Batal"
+        class="form-kategori__cancel"
+        @click="emit('cancel')"
+      />
       <q-btn
         type="submit"
         unelevated
@@ -60,10 +68,10 @@
 const props = defineProps({
   modelValue: {
     type: Object,
-    required: true,
+    required: true
   },
   saving: Boolean,
-  isEditing: Boolean,
+  isEditing: Boolean
 })
 
 const emit = defineEmits(['update:modelValue', 'submit', 'cancel'])
@@ -71,7 +79,7 @@ const emit = defineEmits(['update:modelValue', 'submit', 'cancel'])
 function updateField(field, value) {
   emit('update:modelValue', {
     ...props.modelValue,
-    [field]: value,
+    [field]: value
   })
 }
 </script>

@@ -15,7 +15,12 @@
         </div>
 
         <nav class="desktop-nav gt-sm" aria-label="Navigasi utama">
-          <q-btn flat no-caps label="Beranda" class="nav-link nav-link--active" />
+          <q-btn
+            flat
+            no-caps
+            label="Beranda"
+            class="nav-link nav-link--active"
+          />
           <q-btn flat no-caps label="Direktori" class="nav-link" />
           <q-btn flat no-caps label="Panduan" class="nav-link" />
           <q-btn flat no-caps label="Kontak" class="nav-link" />
@@ -38,15 +43,24 @@
               <q-icon name="person" size="22px" />
             </q-avatar>
 
-            <q-menu anchor="bottom right" self="top right" class="user-menu" :offset="[0, 10]">
+            <q-menu
+              anchor="bottom right"
+              self="top right"
+              class="user-menu"
+              :offset="[0, 10]"
+            >
               <q-list style="min-width: 190px">
                 <q-item>
-                  <q-item-section avatar><q-icon name="person_outline" /></q-item-section>
+                  <q-item-section avatar
+                    ><q-icon name="person_outline"
+                  /></q-item-section>
                   <q-item-section>{{ userName }}</q-item-section>
                 </q-item>
                 <q-separator />
                 <q-item clickable v-close-popup @click="logout">
-                  <q-item-section avatar><q-icon name="logout" /></q-item-section>
+                  <q-item-section avatar
+                    ><q-icon name="logout"
+                  /></q-item-section>
                   <q-item-section>Keluar</q-item-section>
                 </q-item>
               </q-list>
@@ -60,8 +74,8 @@
           <div class="eyebrow"><span></span> Selamat datang</div>
           <h1>MD<br />Furniture</h1>
           <p>
-            Aplikasi untk mengolah data MD Furniture,masukkan produk dan harga,agar tampil di
-            website
+            Aplikasi untk mengolah data MD Furniture,masukkan produk dan
+            harga,agar tampil di website
           </p>
         </div>
         <div class="gold-ribbon" aria-hidden="true"></div>
@@ -105,20 +119,31 @@
           </button>
         </div>
 
-        <div v-if="visibleMenus.length === 0" class="empty-state">Aplikasi tidak ditemukan.</div>
+        <div v-if="visibleMenus.length === 0" class="empty-state"
+          >Aplikasi tidak ditemukan.</div
+        >
       </section>
 
       <footer class="footer gt-xs">
-        <span>© {{ currentYear }} MD Furniture. Seluruh hak cipta dilindungi.</span>
+        <span
+          >© {{ currentYear }} MD Furniture. Seluruh hak cipta dilindungi.</span
+        >
         <div>
-          <span>Kebijakan Privasi</span><i></i><span>Syarat & Ketentuan</span><i></i
-          ><span>Kontak</span>
+          <span>Kebijakan Privasi</span><i></i><span>Syarat & Ketentuan</span
+          ><i></i><span>Kontak</span>
         </div>
       </footer>
     </main>
 
     <nav class="mobile-nav lt-sm" aria-label="Navigasi bawah">
-      <q-btn flat stack no-caps icon="home" label="Beranda" class="mobile-nav__active" />
+      <q-btn
+        flat
+        stack
+        no-caps
+        icon="home"
+        label="Beranda"
+        class="mobile-nav__active"
+      />
       <q-btn flat stack no-caps icon="grid_view" label="Direktori" />
       <q-btn flat stack no-caps icon="person_outline" label="Akun" />
       <q-btn flat stack no-caps icon="logout" label="Keluar" @click="logout" />
@@ -142,7 +167,9 @@ const user = computed(() => {
   }
 })
 
-const userName = computed(() => user.value?.name || user.value?.nama || 'Administrator')
+const userName = computed(
+  () => user.value?.name || user.value?.nama || 'Administrator'
+)
 
 const menus = [
   {
@@ -150,55 +177,57 @@ const menus = [
     description: 'Atur kategori dan pengelompokan seluruh produk furniture.',
     icon: 'category',
     color: '#4c9cff',
-    route: '/kategori',
+    route: '/kategori'
   },
   {
     title: 'Produk',
     description: 'Kelola katalog, harga, stok, deskripsi dan informasi produk.',
     icon: 'inventory_2',
     color: '#ffb91d',
-    route: '/produk',
+    route: '/produk'
   },
   {
     title: 'Pesanan',
     description: 'Pantau pesanan pelanggan dan proses transaksi penjualan.',
     icon: 'shopping_bag',
     color: '#4bd6b3',
-    route: '/pesanan',
+    route: '/pesanan'
   },
   {
     title: 'Pelanggan',
     description: 'Kelola informasi pelanggan dan riwayat transaksi.',
     icon: 'groups',
     color: '#ff7477',
-    route: '/pelanggan',
+    route: '/pelanggan'
   },
   {
     title: 'Laporan',
     description: 'Lihat ringkasan penjualan dan laporan operasional.',
     icon: 'bar_chart',
     color: '#9b6cff',
-    route: '/laporan',
+    route: '/laporan'
   },
   {
     title: 'Pengaturan',
     description: 'Konfigurasi aplikasi, pengguna dan informasi perusahaan.',
     icon: 'settings',
     color: '#ff8b24',
-    route: '/pengaturan',
-  },
+    route: '/pengaturan'
+  }
 ]
 
 const visibleMenus = computed(() => {
   const keyword = search.value.trim().toLocaleLowerCase('id-ID')
   if (!keyword) return menus
 
-  return menus.filter((menu) =>
-    `${menu.title} ${menu.description}`.toLocaleLowerCase('id-ID').includes(keyword),
+  return menus.filter(menu =>
+    `${menu.title} ${menu.description}`
+      .toLocaleLowerCase('id-ID')
+      .includes(keyword)
   )
 })
 
-const openMenu = (menu) => {
+const openMenu = menu => {
   if (menu.route) router.push(menu.route)
 }
 
@@ -227,7 +256,13 @@ const logout = () => {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 7px solid #d69c0e;
   border-radius: 22px 22px 8px 8px;
-  background: radial-gradient(circle at 83% 8%, rgba(221, 157, 14, 0.07), transparent 26%), #0d1011;
+  background:
+    radial-gradient(
+      circle at 83% 8%,
+      rgba(221, 157, 14, 0.07),
+      transparent 26%
+    ),
+    #0d1011;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.46);
 }
 
@@ -238,7 +273,11 @@ const logout = () => {
   gap: 28px;
   padding: 0 36px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  background: linear-gradient(90deg, rgba(11, 16, 18, 0.97), rgba(15, 20, 22, 0.9));
+  background: linear-gradient(
+    90deg,
+    rgba(11, 16, 18, 0.97),
+    rgba(15, 20, 22, 0.9)
+  );
 }
 
 .brand,
@@ -399,7 +438,12 @@ const logout = () => {
   height: 88px;
   transform: rotate(1.6deg);
   border-radius: 50% 50% 0 0;
-  background: linear-gradient(90deg, rgba(224, 164, 8, 0.78), #f9c21d 48%, rgba(197, 126, 4, 0.66));
+  background: linear-gradient(
+    90deg,
+    rgba(224, 164, 8, 0.78),
+    #f9c21d 48%,
+    rgba(197, 126, 4, 0.66)
+  );
   box-shadow: 0 -10px 30px rgba(226, 170, 16, 0.15);
 }
 .gold-ribbon::after {
@@ -467,7 +511,11 @@ const logout = () => {
   cursor: pointer;
   border: 1px solid #30383b;
   border-radius: 12px;
-  background: linear-gradient(140deg, rgba(34, 40, 42, 0.9), rgba(21, 26, 28, 0.92));
+  background: linear-gradient(
+    140deg,
+    rgba(34, 40, 42, 0.9),
+    rgba(21, 26, 28, 0.92)
+  );
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -487,12 +535,18 @@ const logout = () => {
 .menu-card:hover {
   transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--menu-color) 60%, #fff);
-  background: linear-gradient(140deg, rgba(42, 48, 50, 0.98), rgba(24, 30, 32, 0.96));
+  background: linear-gradient(
+    140deg,
+    rgba(42, 48, 50, 0.98),
+    rgba(24, 30, 32, 0.96)
+  );
 }
 .menu-icon {
   position: relative;
   color: var(--menu-color);
-  filter: drop-shadow(0 4px 8px color-mix(in srgb, var(--menu-color) 25%, transparent));
+  filter: drop-shadow(
+    0 4px 8px color-mix(in srgb, var(--menu-color) 25%, transparent)
+  );
 }
 .menu-content {
   margin-top: auto;
@@ -592,7 +646,11 @@ const logout = () => {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(90deg, rgba(7, 12, 14, 0.88), rgba(7, 12, 14, 0.36));
+    background: linear-gradient(
+      90deg,
+      rgba(7, 12, 14, 0.88),
+      rgba(7, 12, 14, 0.36)
+    );
     content: '';
   }
   .eyebrow {

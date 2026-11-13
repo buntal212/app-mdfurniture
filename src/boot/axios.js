@@ -7,12 +7,13 @@ const api = axios.create({
   baseURL: import.meta.env.QCLI_API_BASE_URL || 'http://localhost:8000/api/v1',
   headers: {
     Accept: 'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-  },
+    'X-Requested-With': 'XMLHttpRequest'
+  }
 })
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem(authTokenKey) || sessionStorage.getItem(authTokenKey)
+api.interceptors.request.use(config => {
+  const token =
+    localStorage.getItem(authTokenKey) || sessionStorage.getItem(authTokenKey)
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
